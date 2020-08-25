@@ -32,8 +32,7 @@ class ListViewModel extends ChangeNotifier {
   int get maxIndex => IndexRepository.MAX_INDEX;
 
   void initIndexes() async {
-    await Future.delayed(const Duration(seconds: 2));
-    indexes = locator<IndexRepository>().fetchIndexes(0);
+    indexes = await locator<IndexRepository>().fetchIndexes(0);
 
     isLoading = false;
     notifyListeners();
@@ -43,9 +42,8 @@ class ListViewModel extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    await Future.delayed(const Duration(seconds: 2));
     final head = (int.tryParse(indexes.last) ?? 0) + 1;
-    final additionalList = locator<IndexRepository>().fetchIndexes(head);
+    final additionalList = await locator<IndexRepository>().fetchIndexes(head);
 
     indexes = [...indexes, ...additionalList];
 

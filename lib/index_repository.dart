@@ -2,7 +2,9 @@ class IndexRepository {
   static const MAX_INDEX = 200;
   static const LIMIT = 20;
 
-  List<String> fetchIndexes(int head) {
+  Future<List<String>> fetchIndexes(int head) async {
+    await Future.delayed(const Duration(seconds: 2));
+
     final left = MAX_INDEX - head;
 
     if (left < 0) {
